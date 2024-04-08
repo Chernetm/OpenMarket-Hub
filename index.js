@@ -19,14 +19,9 @@ if (process.env.NODE_ENV !== "production") {
   const routerCampground = require('./routers/campgrounds');
   const routerViews = require('./routers/reviews');
   const helmet = require('helmet');
-  const MongoDBStore = require('connect-mongo').create({
-    mongoUrl: uri, // Replace with your MongoDB connection string
-    secret: process.env.SECRET,
-    touchAfter: 24 * 60 * 60,
-  }).on("error", function (e) {
-    console.log("SESSION STORE ERROR", e)});
 
-    const client = new MongoClient(uri, {
+
+  const client = new MongoClient(uri, {
       serverApi: {
         version: ServerApiVersion.v1,
         strict: true,
@@ -48,15 +43,6 @@ if (process.env.NODE_ENV !== "production") {
     }
     run().catch(console.dir);
     
-
-  
-  // mongoose.connect(uri); 
-  
-  // const db = mongoose.connection;
-  // db.on("error", console.error.bind(console, "connection error:"));
-  // db.once("open", () => {
-  //   console.log("Database connected");
-  // });
   
   const app = express();
   
@@ -71,8 +57,7 @@ if (process.env.NODE_ENV !== "production") {
   const secret = process.env.SECRET||'thisismysecretcode';
    
   const sessionConfig = {
-    store:MongoDBStore,
-    name: 'session',
+  
     secret:secret,
     resave: false,
     saveUninitialized: true,
