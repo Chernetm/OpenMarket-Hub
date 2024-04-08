@@ -14,36 +14,29 @@ if (process.env.NODE_ENV !== "production") {
   const localStrategy = require('passport-local');
   const cors=require('cors');
   const User = require('./models/user');
-  const { MongoClient, ServerApiVersion } = require('mongodb');
-  const uri = process.env.DB_URL||'mongodb+srv://yelpcamp:hhNXPvbwPrhQWk2y@campgroundcluster.bafm8mz.mongodb.net/?retryWrites=true&w=majority&appName=campgroundCluster';
+  
+  const uri ='mongodb+srv://yelpcamp:hhNXPvbwPrhQWk2y@campgroundcluster.bafm8mz.mongodb.net/?retryWrites=true&w=majority&appName=campgroundCluster';
   const routerRegister = require('./routers/users');
   const routerCampground = require('./routers/campgrounds');
   const routerViews = require('./routers/reviews');
   const helmet = require('helmet');
 
 
-  const client = new MongoClient(uri, {
-      serverApi: {
-        version: ServerApiVersion.v1,
-        strict: true,
-        deprecationErrors: true,
-      }
+// this is our MongoDB database
+
+mongoose.Promise = global.Promise;
+
+// connects our back end code with the database
+mongoose.connect(uri,
+    {   
     });
-    
-    async function run() {
-      try {
-        // Connect the client to the server	(optional starting in v4.7)
-        await client.connect();
-        // Send a ping to confirm a successful connection
-        await client.db("admin").command({ ping: 1 });
-        console.log("Pinged your deployment. You successfully connected to MongoDB!");
-      } finally {
-        // Ensures that the client will close when you finish/error
-        await client.close();
-      }
-    }
-    run().catch(console.dir);
-    
+
+let db = mongoose.connection;
+
+db.once('open', () => console.log('connected to the database'));
+
+
+  
   
   const app = express();
   
@@ -116,3 +109,5 @@ if (process.env.NODE_ENV !== "production") {
   app.listen(port,() => {
     console.log("The port 600 is listening ....");
   });
+  //mongodb+srv://yelpcamp:<password>@campgroundcluster.bafm8mz.mongodb.net/?retryWrites=true&w=majority&appName=campgroundCluster
+  //mongodb+srv://yelpcamp:<password>@campgroundcluster.bafm8mz.mongodb.net/
