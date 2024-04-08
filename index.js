@@ -14,7 +14,7 @@ if (process.env.NODE_ENV !== "production") {
   const localStrategy = require('passport-local');
   const User = require('./models/user');
   const { MongoClient, ServerApiVersion } = require('mongodb');
-  const uri = process.env.DB_URL;
+  const uri = process.env.DB_URL||'mongodb+srv://yelpcamp:hhNXPvbwPrhQWk2y@campgroundcluster.bafm8mz.mongodb.net/?retryWrites=true&w=majority&appName=campgroundCluster';
   const routerRegister = require('./routers/users');
   const routerCampground = require('./routers/campgrounds');
   const routerViews = require('./routers/reviews');
