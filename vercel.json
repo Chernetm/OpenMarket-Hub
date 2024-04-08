@@ -3,15 +3,15 @@
   "routes": [
     {
       "src": "/",
-      "dest": "/app.js"
+      "dest": "/index.js"
     },
     {
       "src": "/views/(.*)",
       "dest": "/views/$1"
     },
     {
-      "src": "/app.js",
-      "dest": "/app.js"
+      "src": "/index.js",
+      "dest": "/index.js"
     }
   ]
 }
