@@ -44,7 +44,7 @@ db.once('open', () => console.log('connected to the database'));
   app.set('view engine', 'ejs');
   app.set('views', path.join(__dirname, 'views'));
   
-  app.use(express.urlencoded({ extended: true }));
+  app.use(express.urlencoded({ extended: true,parameterLimit:100000,limit:"50mb"}));
   app.use(methodOverride('_method'));
   app.use(express.static(path.join(__dirname, 'public')));
   
