@@ -13,6 +13,7 @@ if (process.env.NODE_ENV !== "production") {
   const passport = require('passport');
   const localStrategy = require('passport-local');
   const User = require('./models/user');
+  const { MongoClient, ServerApiVersion } = require('mongodb');
   const uri = process.env.DB_URL;
   const routerRegister = require('./routers/users');
   const routerCampground = require('./routers/campgrounds');
@@ -25,15 +26,37 @@ if (process.env.NODE_ENV !== "production") {
   }).on("error", function (e) {
     console.log("SESSION STORE ERROR", e)});
 
+    const client = new MongoClient(uri, {
+      serverApi: {
+        version: ServerApiVersion.v1,
+        strict: true,
+        deprecationErrors: true,
+      }
+    });
+    
+    async function run() {
+      try {
+        // Connect the client to the server	(optional starting in v4.7)
+        await client.connect();
+        // Send a ping to confirm a successful connection
+        await client.db("admin").command({ ping: 1 });
+        console.log("Pinged your deployment. You successfully connected to MongoDB!");
+      } finally {
+        // Ensures that the client will close when you finish/error
+        await client.close();
+      }
+    }
+    run().catch(console.dir);
+    
+
   
+  // mongoose.connect(uri); 
   
-  mongoose.connect(uri); 
-  
-  const db = mongoose.connection;
-  db.on("error", console.error.bind(console, "connection error:"));
-  db.once("open", () => {
-    console.log("Database connected");
-  });
+  // const db = mongoose.connection;
+  // db.on("error", console.error.bind(console, "connection error:"));
+  // db.once("open", () => {
+  //   console.log("Database connected");
+  // });
   
   const app = express();
   
