@@ -13,7 +13,7 @@ if (process.env.NODE_ENV !== "production") {
   const passport = require('passport');
   const localStrategy = require('passport-local');
   const User = require('./models/user');
-  const uri = 'mongodb://localhost:27017/yelp-camp'
+  const uri = process.env.DB_URL;
   const routerRegister = require('./routers/users');
   const routerCampground = require('./routers/campgrounds');
   const routerViews = require('./routers/reviews');
