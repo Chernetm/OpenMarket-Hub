@@ -11,12 +11,5 @@
           "src": "/(.*)",
           "dest": "/"
       }
-  ],
-  
-  "functions": {
-    "myFunction": {
-      "memory": 1024,
-      "maxDuration": 30
-    }
-  }
+  ]
 }

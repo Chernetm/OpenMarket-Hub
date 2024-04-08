@@ -12,6 +12,7 @@ if (process.env.NODE_ENV !== "production") {
   const methodOverride = require('method-override');
   const passport = require('passport');
   const localStrategy = require('passport-local');
+  const cors=require('cors');
   const User = require('./models/user');
   const { MongoClient, ServerApiVersion } = require('mongodb');
   const uri = process.env.DB_URL||'mongodb+srv://yelpcamp:hhNXPvbwPrhQWk2y@campgroundcluster.bafm8mz.mongodb.net/?retryWrites=true&w=majority&appName=campgroundCluster';
@@ -68,6 +69,12 @@ if (process.env.NODE_ENV !== "production") {
       maxAge: 1000 * 60 * 60 * 24 * 7,
     },
   };
+  const corsConfig={
+    origin:'*',
+    credential:true,
+    methods:["GET","POST","PUT","DELETE"]
+  };
+  app.use(cors(corsConfig));
   app.use(session(sessionConfig));
   app.use(flash());
   app.use(helmet({
