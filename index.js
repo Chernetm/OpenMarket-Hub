@@ -15,7 +15,8 @@ if (process.env.NODE_ENV !== "production") {
   const cors=require('cors');
   const User = require('./models/user');
   
-  const uri =process.env.DB_URL;
+  const uri ='mongodb+srv://yelpcamp:hhNXPvbwPrhQWk2y@campgroundcluster.bafm8mz.mongodb.net/?retryWrites=true&w=majority&appName=campgroundCluster'
+
   const routerRegister = require('./routers/users');
   const routerCampground = require('./routers/campgrounds');
   const routerViews = require('./routers/reviews');
@@ -108,7 +109,7 @@ db.once('open', () => console.log('connected to the database'));
   const port=process.env.Port;
   
   app.listen(port,() => {
-    console.log("The port 600 is listening ....");
+    console.log(`The port ${port}is listening ....`);
   });
   //mongodb+srv://yelpcamp:<password>@campgroundcluster.bafm8mz.mongodb.net/?retryWrites=true&w=majority&appName=campgroundCluster
   //mongodb+srv://yelpcamp:<password>@campgroundcluster.bafm8mz.mongodb.net/
