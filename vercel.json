@@ -7,9 +7,9 @@
       }
   ],
   "routes": [
-    { 
-        "src": "/home",
-        "dest": "/"
+    {
+        "src": "/",
+        "dest": "/home"
     },
     {
         "src": "/(.*)",
