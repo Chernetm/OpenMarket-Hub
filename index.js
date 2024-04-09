@@ -15,7 +15,7 @@ if (process.env.NODE_ENV !== "production") {
   const cors=require('cors');
   const User = require('./models/user');
   
-  const uri ='mongodb+srv://yelpcamp:hhNXPvbwPrhQWk2y@campgroundcluster.bafm8mz.mongodb.net/?retryWrites=true&w=majority&appName=campgroundCluster';
+  const uri =process.env.DB_URL;
   const routerRegister = require('./routers/users');
   const routerCampground = require('./routers/campgrounds');
   const routerViews = require('./routers/reviews');
@@ -27,11 +27,9 @@ if (process.env.NODE_ENV !== "production") {
 mongoose.Promise = global.Promise;
 
 // connects our back end code with the database
-mongoose.connect(uri,
-    {   
-    });
+mongoose.connect(uri);
 
-let db = mongoose.connection;
+const db = mongoose.connection;
 
 db.once('open', () => console.log('connected to the database'));
 
@@ -89,6 +87,9 @@ db.once('open', () => console.log('connected to the database'));
     next();
   });
   
+  app.get('/',(req,res)=>{
+    res.render('home');
+  })
   app.use('/campgrounds', routerCampground);
   app.use('/', routerRegister);
   app.use('/campgrounds/:id/reviews', routerViews);
