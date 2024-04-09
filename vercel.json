@@ -9,7 +9,7 @@
     "routes": [
         {
             "src": "/",
-            "dest": "/home"
+            "dest": "/views/home.ejs"
         },
         {
             "src": "/home",
@@ -18,10 +18,6 @@
         {
             "src": "/views/home.ejs",
             "dest": "/home"
-        },
-        {
-            "src": "/(.*)",
-            "dest": "/"
         }
     ]
   }
