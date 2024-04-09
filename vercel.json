@@ -16,6 +16,10 @@
             "dest": "/views/home.ejs"
         },
         {
+            "src": "/views/home.ejs",
+            "dest": "/home"
+        },
+        {
             "src": "/(.*)",
             "dest": "/"
         }
