@@ -33,8 +33,12 @@
               <p class="card-text"><%=campgrounds.description %></p>
             </div>
             <ul class="list-group list-group-flush">
+             
               <li class="list-group-item text-muted"><%=campgrounds.location %></li>
+              
+              <% if(campgrounds.price) {%>
               <li class="list-group-item">$<%= campgrounds.price %></li>
+              <% } %>
               <li class="list-group-item">Submitted by <%= campgrounds.author.username%></li>
               
             </ul>
@@ -59,7 +63,7 @@
     <div class="col-6">
       <% if(currentUser) {%>
 
-        <h2>Leave a Review</h2>
+        <h2>Leave a Comment</h2>
           <form action="/campgrounds/<%=campgrounds._id %>/reviews" method="POST" novalidate class="validate-form">
             <div class="mb-3">
               <fieldset class="starability-growRotate">
@@ -80,7 +84,7 @@
               
             </div>
             <div class="mb-3">
-              <label for="body" class="form-label">Review</label>
+              <label for="body" class="form-label">Comment</label>
               <textarea name="review[body]" id="body" cols="30" rows="3" class="form-control" required></textarea>
               <div class="valid-feedback">Looks Good</div>
               <div class="mt-3">

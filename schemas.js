@@ -5,6 +5,7 @@ module.exports.campgroundSchema=Joi.object({
         price:Joi.number().required(),
         //image:Joi.string().required(),
         location:Joi.string().required(),
+
         description:Joi.string().required()
     }).required()
 });
@@ -14,3 +15,4 @@ module.exports.reviewSchema=Joi.object({
         rating:Joi.number().required().min(0).max(5),
     }).required()
 });
+

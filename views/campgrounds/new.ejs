@@ -1,7 +1,7 @@
 <% layout('layouts/boilerplate') %>
 <div class="container d-flex justify-content-center align-items-center mt-5">
     <div class="row">
-        <h1 class="text-center">New Campground</h1>
+        <h1 class="text-center">Add Product</h1>
      
         <div class="col-12 offset-md-3 col-xl-6 offset-xl-3 ">
             <div class="card shadow">
@@ -21,7 +21,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="location" class="form-label">Location</label>
-                            <input type="text" class="form-control" id="location" name="campground[location]" required>
+                            <input type="text" class="form-control" id="location" name="campground[location]">
                             <div class="valid-feedback">
                                 Looks good
                             </div>
@@ -30,12 +30,10 @@
                         
                         
                         <div class="input-group mb-3">
-                            <label for="price" class="form-label"></label>
+                            <label for="price" class="form-label">Price</label>
                             <span class="input-group-text" id="basic-addon1">$</span>
-                            <input type="number" class="form-control" placeholder="1.98" name="campground[price]" aria-label="price" aria-describedby="basic-addon1" required>
-                            <div class="valid-feedback">
-                                Looks good
-                            </div>
+                            <input type="decimal" class="form-control" id="price"  placeholder="1.98" name="campground[price]" aria-label="price" aria-describedby="basic-addon1">
+                            
                           </div>
                         <div class="mb-3">
                             <label for="description" class="form-label">Description</label>
@@ -47,14 +45,14 @@
                         <div class="mb-3">
                             <label for="image">Upload Image(s)</label>
                             <div class=" form-file custom file ">
-                              <input class="form-control" type="file" id="image" name="image" multiple>
+                              <input class="form-control" type="file" id="image" name="image" multiple required>
                                 <label for="image" class="custom-form-label" >
                                 </label>
                             </div>
                         </div>
                         
                         <div class="mb-3">
-                            <button type="submit" class="btn btn-success btn-full-width">Add Campground</button>
+                            <button type="submit" class="btn btn-success btn-full-width">Submit</button>
                         </div>
                     </form>
                 </div>

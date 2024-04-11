@@ -18,7 +18,7 @@ module.exports.createCampground=async(req,res,next)=>{
     newCamp.author=req.user._id;
     await newCamp.save();
 
-    req.flash( 'success', 'Successfully made a new campground');
+    req.flash( 'success', 'Successfully made a new product');
     res.redirect(`/campgrounds/${newCamp._id}`);
 }
 module.exports.showCampground=async(req,res,next)=>{
@@ -31,7 +31,7 @@ module.exports.showCampground=async(req,res,next)=>{
     ).populate('author');
     
     if(!campgrounds){
-        req.flash('error','Could not found this campground');
+        req.flash('error','Could not found this product');
         return res.redirect('/campgrounds');
     }
     //if(!campgrounds) throw new AppError('Not found Campgrounds')
@@ -42,7 +42,7 @@ module.exports.renderEditForm=async(req,res,next)=>{
     
     const campgrounds= await campground.findById(req.params.id);
     if(!campgrounds){
-        req.flash('error','Could not found this campground');
+        req.flash('error','Could not found this product');
         return res.redirect('/campgrounds');
     }
     
@@ -54,14 +54,16 @@ module.exports.updateCampground=async(req,res,next)=>{
     const imgs=req.files.map(f=>({url:f.path, filename:f.filename}));
     campgrounds.images.push(...imgs);
     await campgrounds.save();
+
     if(req.body.deleteImages){
+        console.log(req.body.deleteImages);
         for(let filename of req.body.deleteImages){
             await cloudinary.uploader.destroy(filename);
         }
         await campgrounds.updateOne({$pull:{images:{filename:{$in:req.body.deleteImages}}}});
     }
 
-    req.flash('success','Successfully updated campground');
+    req.flash('success','Successfully updated product');
     res.redirect(`/campgrounds/${campgrounds._id}`);
       
       
@@ -88,7 +90,7 @@ module.exports.deleteCampground = async (req, res, next) => {
             await cloudinary.uploader.destroy(image.filename);
         }
 
-        req.flash('success', 'Successfully deleted campground.');
+        req.flash('success', 'Successfully deleted product.');
         res.redirect('/campgrounds');
     } catch (err) {
         // Handle errors appropriately, maybe send an error response
