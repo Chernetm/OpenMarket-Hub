@@ -43,7 +43,7 @@ db.once('open', () => console.log('connected to the database'));
   app.set('view engine', 'ejs');
   app.set('views', path.join(__dirname, 'views'));
   
-  app.use(express.urlencoded({ extended: true,parameterLimit:100000,limit:"50mb"}));
+  app.use(express.urlencoded({ extended: true,limit:"50mb"}));
   app.use(methodOverride('_method'));
   app.use(express.static(path.join(__dirname, 'public')));
   
@@ -95,7 +95,13 @@ db.once('open', () => console.log('connected to the database'));
   app.use('/', routerRegister);
   app.use('/campgrounds/:id/reviews', routerViews);
   
-
+  app.use((err, req, res, next) => {
+    if (err instanceof SyntaxError && err.status === 413) {
+      res.status(413).send({ error: 'Payload too large' });
+    } else {
+      next();
+    }
+  });
   
   app.all('*', (req, res, next) => {
     next(new AppError('Not page found!', 400));
