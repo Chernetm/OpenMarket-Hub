@@ -3,16 +3,16 @@
         
         <ul>
             <% for(let campground of campgrounds) {%>
-                <div class="card mb-3">
-                    <div class="row">
+                <div class="card mb-3" style="background-color: rgb(208, 227, 244)">
+                    <div class="row" >
                         <div class="col-md-4">
                             <% if(campground.images.length) {%>
                             <img class="img-fluid" src="<%=campground.images[0].url %>" class="img-fluid" alt="This image from unsplash flush">
                             <% } %>
 
                         </div>
-                        <div class="col-md-8 " style="background-color: gray";>
-                            <div class="card-body " >
+                        <div class="col-md-8 ">
+                            <div class="card-body "  >
                                 <h5 class="card-title"><%= campground.title %></h5>
                                 <p class="card-text"><%= campground.description %></p>
                                 

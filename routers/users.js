@@ -21,5 +21,6 @@ router.route('/login')
 
 router.get('/logout',user.logout );
 router.get('/home',user.home);
+router.get('/about',user.about);
 
 module.exports=router;
