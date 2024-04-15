@@ -15,7 +15,7 @@ if (process.env.NODE_ENV !== "production") {
   const cors=require('cors');
   const User = require('./models/user');
   
-  const uri =process.env.DB_URL;
+  const uri ="mongodb+srv://yelpcamp:hhNXPvbwPrhQWk2y@campgroundcluster.bafm8mz.mongodb.net/?retryWrites=true&w=majority&appName=campgroundCluster";
 
   const routerRegister = require('./routers/users');
   const routerCampground = require('./routers/campgrounds');
