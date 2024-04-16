@@ -1,6 +1,6 @@
 const campground=require('../models/campground');
 const{cloudinary}=require('../cloudinary');
-
+const {AppError}=require('../utils/AppError')
 module.exports.index=async(req,res,next)=>{
     
     const campgrounds= await campground.find({});
@@ -21,6 +21,9 @@ module.exports.createCampground=async(req,res,next)=>{
     req.flash( 'success', 'Successfully made a new product');
     res.redirect(`/campgrounds/${newCamp._id}`);
 }
+
+
+
 module.exports.showCampground=async(req,res,next)=>{
     const campgrounds=await campground.findById(req.params.id).populate({
         path:'reviews',

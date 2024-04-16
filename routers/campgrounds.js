@@ -7,19 +7,12 @@ const {isLoggedIn,validateCampground,isAuthor}=require('../middleware');
 
 const multer=require('multer');
 const{storage}=require('../cloudinary');
-const upload=multer({storage});
-// const upload = multer({
-//    limits: { fileSize: 5 * 1024 * 1024 }, // 5MB file size limit
-//    fileFilter: (req, file, cb) => {
-//      // Validate file type if needed (e.g., image/jpeg)
-//      // Example: Allow only JPEG images
-//      if (file.mimetype.startsWith('image/')) {
-//        cb(null, true); // Accept the file
-//      } else {
-//        cb(new Error('Only images are allowed!'), false); // Reject the file
-//      }
-//    }
-//  });
+
+const upload = multer({
+   storage: storage,
+   limits: { fileSize: 2 * 1024 * 1024 } // 2MB file size limit
+ });
+ 
 
 
 router.route('/')
