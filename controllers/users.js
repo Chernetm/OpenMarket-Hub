@@ -32,6 +32,7 @@ module.exports.renderLogin=(req, res) => {
     
 }
 module.exports.login = (req, res) => {
+    
     req.flash('success', 'Welcome back to OpenMarket Hub!');
     const redirectUrl = req.session.returnTo || '/campgrounds';
     delete req.session.returnTo; // Corrected line
@@ -46,9 +47,12 @@ module.exports.logout=(req, res) => {
             console.error("Error while logging out:", err);
             return next(err);
         }
+        
+
         req.flash('success', 'GoodBye');
         res.redirect('/campgrounds');
     });
+
 }
 
 

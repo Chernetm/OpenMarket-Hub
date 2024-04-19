@@ -1,6 +1,5 @@
 const campground=require('../models/campground');
 const{cloudinary}=require('../cloudinary');
-const {AppError}=require('../utils/AppError')
 module.exports.index=async(req,res,next)=>{
     
     const campgrounds= await campground.find({});
@@ -51,26 +50,7 @@ module.exports.renderEditForm=async(req,res,next)=>{
     
     res.render('campgrounds/edit',{campgrounds});
 }
-// module.exports.updateCampground=async(req,res,next)=>{
-//     const{id}=req.params;
-//     const campgrounds=await campground.findByIdAndUpdate(id,{...req.body.campground});
-//     const imgs=req.files.map(f=>({url:f.path, filename:f.filename}));
-//     campgrounds.images.push(...imgs);
-//     await campgrounds.save();
 
-//     if(req.body.deleteImages){
-//         console.log(req.body.deleteImages);
-//         for(let filename of req.body.deleteImages){
-//             await cloudinary.uploader.destroy(filename);
-//         }
-//         await campgrounds.updateOne({$pull:{images:{filename:{$in:req.body.deleteImages}}}});
-//     }
-
-//     req.flash('success','Successfully updated product');
-//     res.redirect(`/campgrounds/${campgrounds._id}`);
-      
-      
-//   }
 
 
 module.exports.updateCampground = async (req, res, next) => {
@@ -106,25 +86,24 @@ module.exports.updateCampground = async (req, res, next) => {
     }
 };
 
-
-// module.exports.deleteCampground=async(req,res,next)=>{
-//     const{id}=req.params;
-//     const foundedCamp=await campground.findById(id);
-//     await campground.findByIdAndDelete(id);
-//     await cloudinary.uploader.destroy(foundedCamp.images.filename)
-//     req.flash('success','Successfully deleted campground.')
-//     res.redirect('/campgrounds');
-// }
 module.exports.deleteCampground = async (req, res, next) => {
     const { id } = req.params;
     try {
         const foundedCamp = await campground.findById(id);
         await campground.findByIdAndDelete(id);
-        
-        // Assuming `foundedCamp.images` is an array of objects with `public_id`
-        for (const image of foundedCamp.images) {
-            await cloudinary.uploader.destroy(image.filename);
+
+        if (req.body.deleteImages) {
+            // Trim whitespace from each filename in deleteImages array
+            const filenamesToDelete = req.body.deleteImages.map(filename => filename.trim());
+            
+            console.log(filenamesToDelete); // Debugging output
+
+            for (let filename of filenamesToDelete) {
+                // Delete image from Cloudinary
+                await cloudinary.uploader.destroy(filename);
+            }
         }
+    
 
         req.flash('success', 'Successfully deleted product.');
         res.redirect('/campgrounds');
@@ -133,9 +112,3 @@ module.exports.deleteCampground = async (req, res, next) => {
         next(err);
     }
 }
-
-
-/**API ID:wn5GBbuz2lKNm182hEth
- API KEY:h4B4g9wE1NNINCYhbMcvWzKX9JucyRNDJ8JXkhm72Jg
-*
-*/
